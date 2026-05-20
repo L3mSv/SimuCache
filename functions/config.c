@@ -1,7 +1,7 @@
 #include<stdbool.h>
 #include<stdio.h>
 #include<math.h>
-#include"config.h"
+#include"../src/config.h"
 
 void process_cache_config(char* cache_simulator, int nsets, int bsize, int assoc, char substituion_method, bool output_flag, FILE* input_file){
     

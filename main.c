@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<math.h>
-#include"config.h"
-#include"cache.h"
+#include"src/config.h"
+#include"src/cache.h"
 
 int main(int argc, char* argv[]){
 
