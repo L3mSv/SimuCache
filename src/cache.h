@@ -5,6 +5,6 @@
 
 #define CACHE_H
 
-void build_cache(char* cache_simulator, int nsets, int bsize, int assoc, char substituion_method, bool output_flag, FILE* input_file);
+void build_cache(int nsets, int bsize, int assoc, char substituion_method, bool output_flag, char* input_file);
 
 #endif //CACHE_H
