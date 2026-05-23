@@ -1,11 +1,11 @@
-objects = main.o cache.o config.o
+objects = cache_simulator.o cache.o config.o
 
 
 all: $(objects)
 	cc -o simucache $(objects)
 
-main.o: main.c  src/config.h src/cache.h 
-	cc -c main.c 
+cache_simulator.o: cache_simulator.c  src/config.h src/cache.h 
+	cc -c cache_simulator.c 
 
 cache.o: functions/cache.c src/config.h src/cache.h 
 	cc -c functions/cache.c 
