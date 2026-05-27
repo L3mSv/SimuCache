@@ -30,6 +30,7 @@ void process_cache_config(int nsets, int bsize, int assoc, char substituion_meth
     double n_bits_tag = 32 - n_bits_offset - n_bits_indice;
     //descobre o numero de bits de cada parcela do address
 
+    int accesses = 0;
     int miss_compulsorio = 0;
     int miss_capacidade = 0;
     int miss_conflito = 0;
@@ -78,5 +79,19 @@ void process_cache_config(int nsets, int bsize, int assoc, char substituion_meth
             }
             
         //...
+
+        
+        float taxa_hit = hit/accesses;
+        float taxa_miss = (miss_compulsorio+miss_capacidade+miss_conflito)/accesses;
+        float taxa_compulsorio = miss_compulsorio/accesses;
+        float taxa_capacidade = miss_capacidade/accesses;
+        float taxa_conflito = miss_conflito/accesses;
+
+        printf("%d, %f, %f, %f, %f, %f", accesses, taxa_hit, taxa_miss, taxa_compulsorio, taxa_capacidade, taxa_conflito);
+
     }
+}
+
+int method_random(int assoc){
+    return (rand() % assoc);
 }
