@@ -6,6 +6,7 @@
 #include"src/cache.h"
 
 int main(int argc, char* argv[]){
+	srand(time(NULL));
 
 	if (argc != 7){
 		printf("Numero de argumentos incorreto. Utilize:\n");
