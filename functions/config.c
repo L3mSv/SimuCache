@@ -49,6 +49,7 @@ void process_cache_config(int nsets, int bsize, int assoc, char substituion_meth
             } 
         }//verifica se todos os addresss estao ocupados
 
+        
         uint32_t address = catch_next_instruction_in_big_endian(input_file);
 
         int tag = address >> ((int) (n_bits_offset + n_bits_indice));
@@ -77,19 +78,22 @@ void process_cache_config(int nsets, int bsize, int assoc, char substituion_meth
                     miss_conflito++;
                 }
             }
-            
+        accesses++;
         //...
-
-        
-        float taxa_hit = hit/accesses;
-        float taxa_miss = (miss_compulsorio+miss_capacidade+miss_conflito)/accesses;
-        float taxa_compulsorio = miss_compulsorio/accesses;
-        float taxa_capacidade = miss_capacidade/accesses;
-        float taxa_conflito = miss_conflito/accesses;
-
-        printf("%d, %f, %f, %f, %f, %f", accesses, taxa_hit, taxa_miss, taxa_compulsorio, taxa_capacidade, taxa_conflito);
-
     }
+
+    float taxa_hit = hit/accesses;
+    float taxa_miss = (miss_compulsorio+miss_capacidade+miss_conflito)/accesses;
+    float taxa_compulsorio = miss_compulsorio/accesses;
+    float taxa_capacidade = miss_capacidade/accesses;
+    float taxa_conflito = miss_conflito/accesses;
+
+
+        if(output_flag == true){
+            printf("%d, %f, %f, %f, %f, %f", accesses, taxa_hit, taxa_miss, taxa_compulsorio, taxa_capacidade, taxa_conflito);
+        } else {
+            //nosso output .....................
+        }
 }
 
 int method_random(int assoc){
