@@ -5,7 +5,7 @@
 #include"../cache/cache.h"
 #include"../utils/utils.h"
 
-void cache_init(Cache* cache, CacheConfig cfg){
+void cache_init(Cache* cache, CacheConfig cfg, bool output_flag){
     
     //incialize parameters
     cache->hits = 0;
@@ -14,6 +14,9 @@ void cache_init(Cache* cache, CacheConfig cfg){
     cache->compulsory_misses = 0;
     cache->capacity_misses = 0;
     cache->conflict_misses = 0;
+
+    //output type
+    cache->output_flag = output_flag
 
     //creating cache lines
     cache->lines = calloc(
