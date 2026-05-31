@@ -28,11 +28,13 @@ typedef struct{
     CacheConfig config;
 
     bool output_flag;
-    char* input_file;
     
     int accesses;
     int hits;
     int misses;
+    int compulsory_misses;
+    int capacity_misses;
+    int conflict_misses;
 }Cache;
 
 
@@ -41,10 +43,12 @@ typedef struct{
 
 #define CONFIG_H
 
-void process_cache_config(int nsets, int bsize, int assoc, char substituion_method, bool output_flag, char* input_file);
-uint32_t catch_next_instruction_in_little_endian(FILE* benchmark);
-int method_random(int assoc);
+//void process_cache_config(int nsets, int bsize, int assoc, char substituion_method, bool output_flag, char* input_file);
+//int method_random(int assoc);
 
 CacheConfig create_cache_config(int nsets, int bsize, int assoc, char substituion_method);
+void cache_mapping(); // ----------MAKE THIS
+void cache_substituion(); // ----------MAKE THIS
+
 
 #endif //CONFIG_H 

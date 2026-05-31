@@ -1,28 +1,40 @@
 #include<stdbool.h>
 #include<stdio.h>
 #include<math.h>
+#include<ctype.h>
 #include<stdint.h> //import uint32_t (guarantee 32 bits of size)
 #include"../config/config.h"
 #include"../cache/cache.h"
 #include"../utils/utils.h"
 
-CacheConfig create_cache_config(int nsets, int bsize, int assoc, char substituion_method){
+CacheConfig create_cache_config(CacheConfig* config, int nsets, int bsize, int assoc, char substituion_method){
 
-    CacheConfig config;
-    
-	config.nsets = atoi(argv[1]);
-	config.bsize = atoi(argv[2]);
-	config.assoc = atoi(argv[3]);
+	config.nsets = nsets;
+	config.bsize = bsize;
+	config.assoc = assoc;
 
-	config.substituion_method = argv[4][0];
-
-	config.input_file = argv[5];
+	config.substituion_method = substituion_method;
 
 	config.offset_bits = log2(config.bsize);
 	config.index_bits = log2(config.nsets);
 	config.tag_bits = 32 - config.offset_bits - config.index_bits;
+
+    return config;
 }
 
+void cache_mapping(); 
+
+int cache_substituion(Cache* cache){
+    if(tolower(substituion_method) == 'r'){
+        return (rand() % assoc);
+    }
+
+    //FIFO
+
+    //LRU
+}
+
+/*
 void process_cache_config(int nsets, int bsize, int assoc, char substituion_method, bool output_flag, char* input_file){
     
     int cache_val[nsets * assoc];
@@ -104,3 +116,4 @@ void process_cache_config(int nsets, int bsize, int assoc, char substituion_meth
 int method_random(int assoc){
     return (rand() % assoc);
 }
+*/
