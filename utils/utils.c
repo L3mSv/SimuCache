@@ -17,5 +17,14 @@ uint32_t read_big_endian(FILE* benchmark){
     return op;
 }
 
-uint32_t get_tag(uint32_t address, int offset_bits, int index_bits);
-uint32_t get_index(uint32_t address, int offset_bits, int index_bits);
+void output_print_normalize(Cache* cache){
+
+    float hit_ratio = cache->hits / cache->accesses;
+    float miss_ratio = cache->misses / cache->accesses;
+    float compulsory_ratio = cache->compulsory_misses / cache->misses;
+    float capacity_ratio = cache->capacity_misses / cache->misses;
+    float conflict_misses = cache->conflict_misses / cache->misses;
+
+    printf("%d, %f, %f, %f, %f, %f", cache->accesses, hit_ratio, miss_ratio, compulsory_ratio, capacity_ratio, conflict_ratio);
+}
+
