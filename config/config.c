@@ -7,13 +7,14 @@
 #include"../cache/cache.h"
 #include"../utils/utils.h"
 
-CacheConfig create_cache_config(CacheConfig* config, int nsets, int bsize, int assoc, char substituion_method){
+CacheConfig create_cache_config(int nsets, int bsize, int assoc, char substitution_method){
 
+	CacheConfig config;
 	config.nsets = nsets;
 	config.bsize = bsize;
 	config.assoc = assoc;
 
-	config.substituion_method = substituion_method;
+	config.substitution_method = substitution_method;
 
 	config.offset_bits = log2(config.bsize);
 	config.index_bits = log2(config.nsets);
@@ -24,14 +25,30 @@ CacheConfig create_cache_config(CacheConfig* config, int nsets, int bsize, int a
 
 void cache_mapping(); 
 
-int cache_substituion(Cache* cache){
-    if(tolower(substituion_method) == 'r'){
+int cache_substitution(Cache* cache, uint32_t set_index){
+    int assoc = cache->config.assoc;
+
+    char method = tolower(cache->config.substitution_method);
+
+    if(method == 'r'){
         return (rand() % assoc);
     }
 
-    //FIFO
+    //both of the methods LRU aNd FIFO are controlled by this logic:
 
-    //LRU
+    int victim = 0;
+
+    uint32_t oldest_time = cache->lines[set_index * assoc].timestamp;
+
+    for (int i = 1; i < assoc; i++) {
+        uint32_t current_time = cache->lines[set_index * assoc + i].timestamp;
+        
+        if (current_time < oldest_time) {
+            oldest_time = current_time;
+            victim = i;
+        }
+    }
+    return victim;
 }
 
 /*
