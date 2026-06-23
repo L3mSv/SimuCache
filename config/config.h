@@ -5,7 +5,6 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdint.h>
-#include "cache/cache.h"
 
 typedef struct{
     int nsets;
@@ -44,7 +43,7 @@ typedef struct{
 }Cache;
 
 void create_cache_config(CacheConfig* config, int nsets, int bsize, int assoc, char substituion_method);
-void cache_mapping(Cache *cache, uint32_t address);
+void cache_mapping(Cache* cache, uint32_t address);
 int cache_substitution(Cache* cache, uint32_t set_index);
 
 
