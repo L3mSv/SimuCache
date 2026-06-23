@@ -2,11 +2,10 @@
 
 #define CONFIG_H
 
-#include<stdbool.h>
-#include<stdio.h>
-#include<stdint.h>
-#include"../cache/cache.h"
-#include"../utils/utils.h"
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdint.h>
+#include "cache/cache.h"
 
 typedef struct{
     int nsets;
@@ -44,10 +43,7 @@ typedef struct{
     int valid_blocks;
 }Cache;
 
-//void process_cache_config(int nsets, int bsize, int assoc, char substituion_method, bool output_flag, char* input_file);
-//int method_random(int assoc);
-
-CacheConfig create_cache_config(int nsets, int bsize, int assoc, char substituion_method);
+void create_cache_config(CacheConfig* config, int nsets, int bsize, int assoc, char substituion_method);
 void cache_mapping(Cache *cache, uint32_t address);
 int cache_substitution(Cache* cache, uint32_t set_index);
 
