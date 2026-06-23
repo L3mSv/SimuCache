@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <time.h>
 #include <stdbool.h>
 #include "config/config.h"
 #include "cache/cache.h"
@@ -19,7 +20,7 @@ int main(int argc, char* argv[]){
 	//================== CONFIG (PART)
 	CacheConfig* config;
 
-	create_cache_config(config, atoi(argv[1]), atoi(argv[2]), atoi(argv[3]), argv[4][0])
+	create_cache_config(config, atoi(argv[1]), atoi(argv[2]), atoi(argv[3]), argv[4][0]);
 
 	//================== CACHE (PART)
 	Cache* cache;
