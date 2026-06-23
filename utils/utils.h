@@ -1,8 +1,7 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<stdint.h>
-#include"../config/config.h"
-#include"../cache/cache.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
+#include "config/config.h"
 
 #ifndef UTILS_H
 

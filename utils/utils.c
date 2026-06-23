@@ -1,7 +1,7 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<stdint.h>
-#include<../utils/utils.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
+#include <utils/utils.h>
 
 uint32_t read_big_endian(FILE* benchmark){
     
@@ -24,7 +24,8 @@ void output_print_normalize(Cache* cache){
     float compulsory_ratio = cache->compulsory_misses / cache->misses;
     float capacity_ratio = cache->capacity_misses / cache->misses;
     float conflict_misses = cache->conflict_misses / cache->misses;
+    float conflict_ratio = cache->conflict_misses / cache->misses;
 
-    printf("%d, %f, %f, %f, %f, %f", cache->accesses, hit_ratio, miss_ratio, compulsory_ratio, capacity_ratio, conflict_ratio);
+    printf("%d, %.4f, %.4f, %.4f, %.4f, %.4f", cache->accesses, hit_ratio, miss_ratio, compulsory_ratio, capacity_ratio, conflict_ratio);
 }
 
