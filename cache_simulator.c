@@ -1,10 +1,10 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<math.h>
-#include<stdbool.h>
-#include"../config/config.h"
-#include"../cache/cache.h"
-#include"../utils/utils.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <stdbool.h>
+#include "config/config.h"
+#include "cache/cache.h"
+#include "utils/utils.h"
 
 int main(int argc, char* argv[]){
 	srand(time(NULL));
@@ -17,12 +17,12 @@ int main(int argc, char* argv[]){
 	}
 
 	//================== CONFIG (PART)
-	CacheConfig config;
+	CacheConfig* config;
 
 	create_cache_config(config, atoi(argv[1]), atoi(argv[2]), atoi(argv[3]), argv[4][0])
 
 	//================== CACHE (PART)
-	Cache cache;
+	Cache* cache;
 
 	cache_init(cache, config, atoi(argv[5]));
 
