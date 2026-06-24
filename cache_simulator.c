@@ -18,12 +18,12 @@ int main(int argc, char* argv[]){
 	}
 
 	//================== CONFIG (PART)
-	CacheConfig* config;
+	CacheConfig* config = (CacheConfig*) malloc(sizeof(CacheConfig));
 
 	create_cache_config(config, atoi(argv[1]), atoi(argv[2]), atoi(argv[3]), argv[4][0]);
 
 	//================== CACHE (PART)
-	Cache* cache;
+	Cache* cache = (Cache*) malloc(sizeof(Cache));
 
 	cache_init(cache, config, atoi(argv[5]));
 
