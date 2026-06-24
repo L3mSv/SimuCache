@@ -5,8 +5,11 @@
 #include"../cache/cache.h"
 #include"../utils/utils.h"
 
-void cache_init(Cache* cache, CacheConfig cfg, bool output_flag){
+void cache_init(Cache* cache, CacheConfig* cfg, bool output_flag){
     
+    //copy cache config
+    cache->config = *cfg;
+
     //incialize parameters
     cache->hits = 0;
     cache->misses = 0;
@@ -19,96 +22,41 @@ void cache_init(Cache* cache, CacheConfig cfg, bool output_flag){
     //output type
     cache->output_flag = output_flag;
 
-    //creating cache lines
+    //copy cache lines
     cache->lines = calloc(
-        cfg.nsets * cfg assoc,
+        cfg->nsets * cfg->assoc,
         sizeof(CacheLine)
     );
 }
 
-void simulate(Cache* cache, FILE* benchmark){
+void simulate(Cache* cache, char* file)
+{
+    char path[256];
+    snprintf(path, sizeof(path), "benchmarks/%s", file);
 
-    uint32_t c;
-    while ((c = fgetc(benchmark)) != EOF)
-    {
-    cache_mapping(cache, c); // ----------CHANGE THIS
+    FILE* benchmark = fopen(path, "rb");
 
-    //cache_substitution(); // ----------not necessary, since the substitution is handled inside cache_mapping
+    if (!benchmark) {
+        perror("Error opening benchmark");
+        return;
     }
-    if(feof(stream))
+
+    uint32_t addr;
+
+    while ((addr = read_big_endian(benchmark)) != UINT32_MAX)
     {
-        //verifying output flag
-        if(cache->output_flag == 1){
-            output_print_normalize(cache);
-        }else{
-            printf("CUSTOM OUTPUT");
-        }
+        cache_mapping(cache, addr);
     }
+
+    if (cache->output_flag)
+        output_print_normalize(cache);
     else
-    {
-        printf("\nERROR: Can't read file");
-        exit(EXIT_FAILURE);
-    }
+        printf("CUSTOM OUTPUT\n");
+
+    fclose(benchmark);
 }
 
 void cache_destroy(Cache* cache){
     free(cache->lines);
-}
-
-void cache_mapping(Cache *cache, uint32_t address){
-    cache->accesses++;
-    cache->global_time++;
-
-    uint32_t index_mask = (1 << cache->config.index_bits) - 1;
-    uint32_t index = (address >> cache->config.offset_bits) & index_mask;
-    uint32_t tag = address >> (cache->config.offset_bits + cache->config.index_bits);
-
-    int start_index = index * cache->config.assoc;
-    bool hit = false;
-    int empty_way = -1;
-
-    for(int i = 0; i < cache->config.assoc; i++){
-        CacheLine *current_line = &cache->lines[start_index + i];
-
-        if(current_line->val && current_line->tag == tag){
-            cache->hits++;
-            hit = true;
-
-            //on the LRU case:
-            if(tolower(cache->config.substitution_method) == 'l'){
-                current_line->timestamp = cache->global_time;
-            }
-            break;
-        }
-
-        if(!current_line->val && empty_way == -1){
-            empty_way = i;
-        }
-    }
-
-    if(!hit){
-        cache->misses++;
-        int target;
-
-        if(empty_way != -1){
-            cache->compulsory_misses++;
-            cache->valid_blocks++;
-            target = empty_way;
-        } else{
-
-            int total_cache_blocks = cache->config.nsets * cache->config.assoc;
-
-            if(cache->valid_blocks >= total_cache_blocks){
-                cache->capacity_misses++;
-            } else{
-                cache->conflict_misses++;
-            }
-            target = cache_substitution(cache, index);
-        }
-        CacheLine* target_line = &cache->lines[start_index + target];
-        target_line->val = true;
-        target_line->tag = tag;
-        target_line->timestamp = cache->global_time;
-    }
-
+    free(cache);
 }
