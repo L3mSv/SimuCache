@@ -51,7 +51,7 @@ void simulate(Cache* cache, char* file)
     if (cache->output_flag)
         output_print_normalize(cache);
     else
-        printf("CUSTOM OUTPUT\n");
+        output_print_custom(cache);
 
     fclose(benchmark);
 }

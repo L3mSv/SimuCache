@@ -10,5 +10,6 @@
 
 uint32_t read_big_endian(FILE *fp);
 void output_print_normalize(Cache* cache);
+void output_print_custom(Cache* cache);
 
 #endif //UTILS_H

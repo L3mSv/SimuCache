@@ -17,6 +17,16 @@ int main(int argc, char* argv[]){
 		exit(EXIT_FAILURE);
 	}
 
+	//================== POWER OF TWO TEST (PART)
+	int nsets = atoi(argv[1]);
+	int bsize = atoi(argv[2]);
+	int assoc = atoi(argv[3]);
+
+	if ((nsets & (nsets - 1)) != 0 || (bsize & (bsize - 1)) != 0 || (assoc & (assoc - 1)) != 0){
+		printf("Erro: nsets, bsize e assoc devem ser potências de dois.\n");
+		exit(EXIT_FAILURE);
+	}
+
 	//================== CONFIG (PART)
 	CacheConfig* config = (CacheConfig*) malloc(sizeof(CacheConfig));
 
