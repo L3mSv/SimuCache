@@ -12,7 +12,7 @@ int main(int argc, char* argv[]){
 
 	//=================== CALL (PART)
 	if (argc != 7){
-		printf("Numero de argumentos incorreto. Utilize:\n");
+		printf("Incorrect number of arguments. Use:\n");
 		printf("./cache_simulator <nsets> <bsize> <assoc> <substituição> <flag_saida> arquivo_de_entrada\n");
 		exit(EXIT_FAILURE);
 	}
@@ -23,7 +23,7 @@ int main(int argc, char* argv[]){
 	int assoc = atoi(argv[3]);
 
 	if ((nsets & (nsets - 1)) != 0 || (bsize & (bsize - 1)) != 0 || (assoc & (assoc - 1)) != 0){
-		printf("Erro: nsets, bsize e assoc devem ser potências de dois.\n");
+		printf("Error: nsets, bsize, and assoc must be powers of two.\n");
 		exit(EXIT_FAILURE);
 	}
 
